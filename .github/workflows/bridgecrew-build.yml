@@ -1,0 +1,24 @@
+name: Bridgecrew Build (Code Review) Scan
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    types: [opened, edited, reopened, ready_for_review, review_requested ]
+    branches: [ master ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Run Bridgecrew 
+        id: Bridgecrew
+        uses: bridgecrewio/bridgecrew-action@master 
+        with:
+          api-key: ${{ secrets.BC_API_KEY }}
